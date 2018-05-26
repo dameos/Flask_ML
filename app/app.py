@@ -2,6 +2,7 @@ import flask
 import transform
 import numpy as np
 import os
+import value_switch as v
 from sklearn.externals import joblib
 from flask import Flask, render_template, request
 
@@ -35,7 +36,7 @@ def make_prediction():
         prediction = svm.predict([hist])
 
         # Squeeze value
-        label = str(np.squeeze(prediction))
+        label = str(np.squeeze(v.get_value_key_str(prediction)))
         
         return render_template('index.html', label=label)
 
